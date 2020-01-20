@@ -5,10 +5,9 @@ import styled from "styled-components";
 import { routes } from "../Router/index";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
-import { postLoginUser } from "../../actions"
 
 const LoginWrapper = styled.form`
-  display: flex;
+ display: flex;
  flex-direction: column;
 `;
 
@@ -18,7 +17,8 @@ class LoginPage extends Component {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      username: "",
     };
   }
 
@@ -28,12 +28,8 @@ class LoginPage extends Component {
     });
   };
 
-  handleLoginButton = () =>{
-    this.props.login(this.state.email, this.state.password)
-  }
-
   render() {
-    const { email, password } = this.state;
+    const { email, password, username } = this.state;
 
     return (
       <LoginWrapper>
@@ -45,23 +41,35 @@ class LoginPage extends Component {
           label="E-mail"
           value={email}
         />
+        
+        <TextField 
+         onChange={this.handleFieldChange}
+         name="username"
+         type="text"
+         label="Usuário"
+         value={username}
+        />
+
         <TextField
           onChange={this.handleFieldChange}
           name="password"
           type="password"
-          label="password"
+          label="Password"
           value={password}
         />
         <Button>Cadastrar</Button>
-        <Button onClick={this.handleLoginButton}>Login</Button>
+        
       </LoginWrapper>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) =>({
-  login: (email, password) => dispatch(postLoginUser(email, password)),
-})
+function mapDispatchToProps(dispatch) {
+  return {
+    
+    
+  };
+}
 
 export default connect(
   null,

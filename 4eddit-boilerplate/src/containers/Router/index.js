@@ -2,12 +2,16 @@ import React from "react";
 import { ConnectedRouter } from "connected-react-router";
 import { Switch, Route } from "react-router-dom";
 import LoginPage from "../LoginPage";
+import CreateUser from "../CreateUser";
+import PostList from "../PostList";
 
 
 
 
 const routes = {
-  root: "/"
+  login: "/login",
+  createUser: "/createUser",
+  postlist: "/postlist",
   // Outras rotas aqui
 };
 
@@ -15,7 +19,9 @@ function Router(props) {
   return (
     <ConnectedRouter history={props.history}>
       <Switch>
-        <Route path={routes.root} component={LoginPage} />
+        <Route exact path={routes.login} component={LoginPage} />
+        <Route exact path={routes.createUser} component={CreateUser} />
+        <Route exact path={routes.postlist} component={PostList} />
       </Switch>
     </ConnectedRouter>
   );
