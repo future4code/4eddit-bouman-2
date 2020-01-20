@@ -1,17 +1,16 @@
 import React, {Component} from "react";
+import { routes } from "../Router"
+import { getPosts } from "../../actions"
+import { connect } from "react-redux";
 
 
 
 
-class PostList extends Component {
-    constructor(props) {
-        super(props)
 
-        this.state = {
-
-        }
+export class PostList extends Component {
+    componentDidMount(dispatch) {
+        this.props.getPosts()
     }
-
 
     render(){
         return(
@@ -19,9 +18,32 @@ class PostList extends Component {
                
                 <p>Post List</p>
 
+                <div>
+                    {this.props.posts.map((posts)=>
+                    <p>
+                      {posts.text}  
+                      {posts.username}
+                    </p>
+                    )}
+
+                </div>
+
             </div>
         )
     }
 }
 
-export default PostList
+const mapStateToProps = state => ({
+    posts: state.posts.allPosts,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    getPosts: () => dispatch(getPosts())
+
+})
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(PostList);

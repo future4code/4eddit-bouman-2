@@ -4,6 +4,7 @@ const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/fourEddit"
 
 
 
+
 const postLogin = (login) => ({
     type: 'POST_LOGIN',
     payload: {
@@ -25,5 +26,20 @@ export const postLoginUser = (email, password) => async (dispatch) =>{
     }catch(error){
         window.alert("Login ou senha incorreta!!!")
     }
+
+}
+
+const setPosts = (posts) => ({
+    type: "SET_POSTS",
+    payload: {
+        posts,
+    }
+})
+
+export const getPosts = () => async (dispatch) => {
+    const response = await axios.get(`${baseUrl}/posts`)
+    
+
+    dispatch(setPosts(response.data.posts))
 
 }
