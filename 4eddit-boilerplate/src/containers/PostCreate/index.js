@@ -5,21 +5,21 @@ import styled from "styled-components";
 import { routes } from "../Router/index";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
-import { postLoginUser } from "../../actions"
+import { createPost } from "../../actions/";
 
-const LoginWrapper = styled.form`
+
+const Create = styled.form`
  display: flex;
  flex-direction: column;
- align-items: center;
 `;
 
 
-class LoginPage extends Component {
+class PostCreate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: ""
+      title: "",
+      text: ""
     };
   }
 
@@ -29,44 +29,44 @@ class LoginPage extends Component {
     });
   };
 
-  handleLoginButton = () =>{
-    this.props.login(this.state.email, this.state.password)
+  handlePostButton = () =>{
+    this.props.create(this.state.text, this.state.title)
   }
 
   render() {
-    const { email, password } = this.state;
+    const { text, title } = this.state;
 
     return (
-     
-      <LoginWrapper>
+      
+        
+      <Create>
       
         <TextField
           onChange={this.handleFieldChange}
-          name="email"
-          type="email"
-          label="E-mail"
-          value={email}
+          name="title"
+          type="text"
+          label="title"
+          value={title}
         />
         <TextField
           onChange={this.handleFieldChange}
-          name="password"
-          type="password"
-          label="password"
-          value={password}
+          name="text"
+          type="text"
+          label="Texto"
+          value={text}
         />
-        <Button onClick={this.handleLoginButton}>Login</Button>
-      </LoginWrapper>
-      
-      
+
+        <Button onClick={this.handlePostButton}>Enviar</Button>
+      </Create>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) =>({
-  login: (email, password) => dispatch(postLoginUser(email, password)),
+    create:(text, title)=> dispatch(createPost(text, title))
 })
 
 export default connect(
   null,
   mapDispatchToProps
-)(LoginPage);
+)(PostCreate);

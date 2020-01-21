@@ -1,7 +1,9 @@
-import axios from "axios"; 
+import axios from "axios";
+import { routes } from "../containers/Router";
+ import { push } from "connected-react-router";
 
 const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/fourEddit"
-
+const token = localStorage.getItem("token")
 
 const postLogin = (login) => ({
     type: 'POST_LOGIN',
@@ -24,6 +26,13 @@ const setCreateUser = (user) => ({
     }
 })
 
+const setCreatePost = (createpost) => ({
+    type: "CREATE_POST",
+    payload: {
+        createpost,
+    }
+})
+
 export const postLoginUser = (email, password) => async (dispatch) =>{
   
     const newUser = {
@@ -37,6 +46,7 @@ export const postLoginUser = (email, password) => async (dispatch) =>{
 
         dispatch(postLogin())
             window.alert("Login Realizado com sucessso!!!");
+                dispatch(push(routes.postlist))
     }catch(error){
         window.alert("Login ou senha incorreta!!!")
     }
@@ -52,20 +62,41 @@ export const createUser = (email, password, username) => async (dispatch) =>{
     }
 
     try {
-        await axios.post(`${baseUrl}/signup`, data)
-            alert('Cadastro realizado com sucesso!')
-        
-        dispatch(setCreateUser())
+       const response = await axios.post(`${baseUrl}/signup`, data)
+            window.localStorage.setItem("token", response.data.token);
+            dispatch(setCreateUser())
+                alert('Cadastro realizado com sucesso!')
+                    dispatch(push(routes.postlist))
     } catch(error){
         window.alert('Erro no cadastro')
     }
 
 }
 
+export const createPost = ( text, title) => async (dispatch) => {
+
+    const newPost = {
+        text,
+        title,
+    }
+    try {
+        await axios.post(`${baseUrl}/posts`, newPost, {
+            headers:{
+                auth: token,
+            }
+
+        })
+        dispatch(setCreatePost())
+        window.alert("Post criado com sucesso!!!")
+    }catch(erro){
+        window.alert("Erro")
+    }
+}
+
 
 
 export const getPosts = () => async (dispatch) => {
-    const token = localStorage.getItem("token")
+    
     try{
     const response = await axios.get(`${baseUrl}/posts`,{
         headers: {
