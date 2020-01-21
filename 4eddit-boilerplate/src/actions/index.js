@@ -1,7 +1,7 @@
 import axios from "axios"; 
 
 const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/fourEddit"
-
+const token = localStorage.getItem("token")
 
 const postLogin = (login) => ({
     type: 'POST_LOGIN',
@@ -21,6 +21,13 @@ const setCreateUser = (user) => ({
     type: "CREATE_USER",
     payload: {
         user,
+    }
+})
+
+const setCreatePost = (createpost) => ({
+    type: "CREATE_POST",
+    payload: {
+        createpost,
     }
 })
 
@@ -62,10 +69,30 @@ export const createUser = (email, password, username) => async (dispatch) =>{
 
 }
 
+export const createPost = ( text, title) => async (dispatch) => {
+
+    const newPost = {
+        text,
+        title,
+    }
+    try {
+        await axios.post(`${baseUrl}/posts`, newPost, {
+            headers:{
+                auth: token,
+            }
+
+        })
+        dispatch(setCreatePost())
+        window.alert("Post criado com sucesso!!!")
+    }catch(erro){
+        window.alert("Erro")
+    }
+}
+
 
 
 export const getPosts = () => async (dispatch) => {
-    const token = localStorage.getItem("token")
+    
     try{
     const response = await axios.get(`${baseUrl}/posts`,{
         headers: {
