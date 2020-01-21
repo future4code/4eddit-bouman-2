@@ -1,4 +1,6 @@
-import axios from "axios"; 
+import axios from "axios";
+import { routes } from "../containers/Router";
+ import { push } from "connected-react-router";
 
 const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/fourEddit"
 const token = localStorage.getItem("token")
@@ -44,6 +46,7 @@ export const postLoginUser = (email, password) => async (dispatch) =>{
 
         dispatch(postLogin())
             window.alert("Login Realizado com sucessso!!!");
+                dispatch(push(routes.postlist))
     }catch(error){
         window.alert("Login ou senha incorreta!!!")
     }
@@ -59,10 +62,11 @@ export const createUser = (email, password, username) => async (dispatch) =>{
     }
 
     try {
-        await axios.post(`${baseUrl}/signup`, data)
-            alert('Cadastro realizado com sucesso!')
-        
-        dispatch(setCreateUser())
+       const response = await axios.post(`${baseUrl}/signup`, data)
+            window.localStorage.setItem("token", response.data.token);
+            dispatch(setCreateUser())
+                alert('Cadastro realizado com sucesso!')
+                    dispatch(push(routes.postlist))
     } catch(error){
         window.alert('Erro no cadastro')
     }

@@ -8,8 +8,9 @@ import { push } from "connected-react-router";
 import { postLoginUser } from "../../actions"
 
 const LoginWrapper = styled.form`
-  display: flex;
+ display: flex;
  flex-direction: column;
+ align-items: center;
 `;
 
 
@@ -36,6 +37,7 @@ class LoginPage extends Component {
     const { email, password } = this.state;
 
     return (
+     
       <LoginWrapper>
       
         <TextField
@@ -52,9 +54,10 @@ class LoginPage extends Component {
           label="password"
           value={password}
         />
-        <Button>Cadastrar</Button>
         <Button onClick={this.handleLoginButton}>Login</Button>
       </LoginWrapper>
+      
+      
     );
   }
 }
