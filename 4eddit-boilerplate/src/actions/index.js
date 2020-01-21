@@ -3,8 +3,6 @@ import axios from "axios";
 const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/fourEddit"
 
 
-
-
 const postLogin = (login) => ({
     type: 'POST_LOGIN',
     payload: {
@@ -12,11 +10,17 @@ const postLogin = (login) => ({
     }
 })
 
-
 const setPosts = (posts) => ({
     type: "SET_POSTS",
     payload: {
         posts,
+    }
+})
+
+const setCreateUser = (user) => ({
+    type: "CREATE_USER",
+    payload: {
+        user,
     }
 })
 
@@ -35,6 +39,25 @@ export const postLoginUser = (email, password) => async (dispatch) =>{
             window.alert("Login Realizado com sucessso!!!");
     }catch(error){
         window.alert("Login ou senha incorreta!!!")
+    }
+
+}
+
+export const createUser = (email, password, username) => async (dispatch) =>{
+
+    const data = {
+        email,
+        password, 
+        username
+    }
+
+    try {
+        await axios.post(`${baseUrl}/signup`, data)
+            alert('Cadastro realizado com sucesso!')
+        
+        dispatch(setCreateUser())
+    } catch(error){
+        window.alert('Erro no cadastro')
     }
 
 }

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { routes } from "../Router/index";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
+import { createUser } from "../../actions";
 
 const LoginWrapper = styled.form`
  display: flex;
@@ -27,6 +28,11 @@ class LoginPage extends Component {
       [event.target.name]: event.target.value
     });
   };
+
+  handleSignupButton = () =>{
+    this.props.createUser(this.state.email, this.state.password, this.state.username)
+  }
+
 
   render() {
     const { email, password, username } = this.state;
@@ -57,19 +63,16 @@ class LoginPage extends Component {
           label="Password"
           value={password}
         />
-        <Button>Cadastrar</Button>
+        <Button onClick={this.handleSignupButton}>Cadastrar</Button>
         
       </LoginWrapper>
     );
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    
-    
-  };
-}
+const mapDispatchToProps = (dispatch) =>({
+  createUser: (email, password, username) => dispatch(createUser(email, password, username)),
+})
 
 export default connect(
   null,
