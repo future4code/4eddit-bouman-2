@@ -1,10 +1,13 @@
 import React, {Component} from "react";
-import { routes } from "../Router"
-import { getPosts } from "../../actions"
+import { routes } from "../Router";
+import { getPosts } from "../../actions";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { push } from "connected-react-router";
+import { getPostDetail } from "../../actions";
 import ArrowUpwardRoundedIcon from '@material-ui/icons/ArrowUpwardRounded';
 import ArrowDownwardRoundedIcon from '@material-ui/icons/ArrowDownwardRounded';
+
 
 const PostDiv = styled.div`
 border: 1px solid #cdcdcc;
@@ -16,6 +19,7 @@ border-radius: 6px;
 font-family: verdana;
 font-size: 11px;
 border-left: 3px solid #c46210;
+
 `;
 
 const PostContainer = styled.div`
@@ -45,23 +49,37 @@ font-size: 9px;
 `
 
 export class PostList extends Component {
+    
+    
     componentDidMount(dispatch) {
-        this.props.getPosts()
+        this.props.getPosts(this.props.id)
+    }
+
+
+    handleIdPostAndGoToPostDetails = (postId) =>{
+        this.props.getPostId(postId);
+        this.props.goToPostDetails();
     }
 
     render(){
+        const { getPostId } = this.props;
+        
         return(
             <BackgroundDiv>
                
                 <PostContainer>
                     {this.props.posts.map((posts)=>
+
+                        
+
                     <PostDiv>
                       <UserName><PostedBy>Postado por: </PostedBy>{posts.username}</UserName>
                       {posts.text}  
                       <div>(0) comentários</div> {/* quantidade de comentários vai aqui depois*/}
                       <p><ArrowUpwardRoundedIcon/><ArrowDownwardRoundedIcon/></p>
-                      <DetailsButton>Detalhes do post</DetailsButton>
+                      <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)}>{posts.text} >Detalhes do post</DetailsButton>
                     </PostDiv>
+
                     )}
 
                 </PostContainer>
@@ -73,10 +91,13 @@ export class PostList extends Component {
 
 const mapStateToProps = state => ({
     posts: state.posts.allPosts,
+    idSelectedPost: state.posts.postId,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    getPosts: () => dispatch(getPosts())
+    getPosts: () => dispatch(getPosts()),
+    goToPostDetails: ()=> dispatch(push(routes.postdetails)),
+    getPostId: (postId)=> dispatch(getPostDetail(postId)),
 
 })
 

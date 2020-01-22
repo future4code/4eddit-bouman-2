@@ -1,6 +1,6 @@
 import axios from "axios";
 import { routes } from "../containers/Router";
- import { push } from "connected-react-router";
+import { push } from "connected-react-router";
 
 const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/fourEddit"
 const token = localStorage.getItem("token")
@@ -32,6 +32,15 @@ const setCreatePost = (createpost) => ({
         createpost,
     }
 })
+
+export const setPostSelect = (postId) => ({
+    type: "SET_POSTS_ID",
+    payload: {
+        postId
+    }
+})
+
+
 
 export const postLoginUser = (email, password) => async (dispatch) =>{
   
@@ -94,7 +103,6 @@ export const createPost = ( text, title) => async (dispatch) => {
 }
 
 
-
 export const getPosts = () => async (dispatch) => {
     
     try{
@@ -104,9 +112,24 @@ export const getPosts = () => async (dispatch) => {
         }
     })
     dispatch(setPosts(response.data.posts))
-}catch(error){
-    window.alert("Erro")
+    }catch(error){
+        window.alert("Erro")
+
+    }
 
 }
 
+export const getPostDetail = (postId) => async (dispatch) =>{
+
+    try{
+        const response = await axios.get(`${baseUrl}/posts/${postId}`, {
+            headers: {
+                auth: token,
+            }
+        })
+        dispatch(setPostSelect(response.data.post))
+        
+    }catch(error){
+        window.alert("Erro")
+    }
 }

@@ -6,6 +6,7 @@ import CreateUser from "../CreateUser";
 import PostList from "../PostList";
 import PostCreate from "../PostCreate";
 import Home from "../Home"
+import PostDetails from "../PostDetails";
 
 
 
@@ -15,6 +16,7 @@ export const routes = {
   createUser: "/createUser",
   postlist: "/postlist",
   createpost: "/createpost",
+  postdetails: "/postdetails"
   // Outras rotas aqui
 };
 
@@ -27,6 +29,7 @@ function Router(props) {
         <Route exact path={routes.createUser} component={CreateUser} />
         <Route exact path={routes.postlist} component={PostList} />
         <Route exact path={routes.createpost} component={PostCreate} />
+        <Route exact path={routes.postdetails} component={PostDetails} />
       </Switch>
     </ConnectedRouter>
   );
