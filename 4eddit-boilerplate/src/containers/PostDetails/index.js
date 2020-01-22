@@ -28,11 +28,12 @@ class PostDetails extends Component {
                     
                     <div>
                         <p>{selectedPost.text}</p>
+                        <p>{selectedPost.title}</p>
                         
                     </div>
                     {selectedPost.comments && selectedPost.comments.map((itemPost) =>
                         <div>
-                            <p>comentarios: {itemPost.text}</p>
+                            <p>comentarios: {itemPost.text} {itemPost.username} </p>
                         </div>
                     )}
 
