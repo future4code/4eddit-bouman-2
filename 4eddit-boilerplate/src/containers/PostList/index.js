@@ -7,6 +7,7 @@ import { push } from "connected-react-router";
 import { getPostDetail } from "../../actions";
 import ArrowUpwardRoundedIcon from '@material-ui/icons/ArrowUpwardRounded';
 import ArrowDownwardRoundedIcon from '@material-ui/icons/ArrowDownwardRounded';
+import PostCreate from "../PostCreate"
 
 
 const PostDiv = styled.div`
@@ -67,6 +68,8 @@ export class PostList extends Component {
         return(
             <BackgroundDiv>
                
+                <PostCreate/>
+
                 <PostContainer>
                     {this.props.posts.map((posts)=>
 
@@ -77,7 +80,7 @@ export class PostList extends Component {
                       {posts.text}  
                       <div>(0) comentários</div> {/* quantidade de comentários vai aqui depois*/}
                       <p><ArrowUpwardRoundedIcon/><ArrowDownwardRoundedIcon/></p>
-                      <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)}>{posts.text} >Detalhes do post</DetailsButton>
+                      <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)} >Detalhes do post</DetailsButton>
                     </PostDiv>
 
                     )}
