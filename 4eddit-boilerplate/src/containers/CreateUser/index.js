@@ -7,10 +7,19 @@ import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { createUser } from "../../actions";
 
+
+const MainContent = styled.div`
+display:flex;
+justify-content: center;
+`;
+
+
 const LoginWrapper = styled.form`
  display: flex;
  flex-direction: column;
 `;
+
+
 
 
 class LoginPage extends Component {
@@ -38,8 +47,9 @@ class LoginPage extends Component {
     const { email, password, username } = this.state;
 
     return (
+    
+    <MainContent>
       <LoginWrapper>
-      
         <TextField
           onChange={this.handleFieldChange}
           name="email"
@@ -64,8 +74,8 @@ class LoginPage extends Component {
           value={password}
         />
         <Button onClick={this.handleSignupButton}>Cadastrar</Button>
-        
       </LoginWrapper>
+    </MainContent>
     );
   }
 }

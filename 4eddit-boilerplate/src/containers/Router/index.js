@@ -15,7 +15,6 @@ export const routes = {
   login: "/login",
   createUser: "/createUser",
   postlist: "/postlist",
-  createpost: "/createpost",
   postdetails: "/postdetails"
   // Outras rotas aqui
 };
@@ -28,7 +27,6 @@ function Router(props) {
         <Route exact path={routes.login} component={LoginPage} />
         <Route exact path={routes.createUser} component={CreateUser} />
         <Route exact path={routes.postlist} component={PostList} />
-        <Route exact path={routes.createpost} component={PostCreate} />
         <Route exact path={routes.postdetails} component={PostDetails} />
       </Switch>
     </ConnectedRouter>

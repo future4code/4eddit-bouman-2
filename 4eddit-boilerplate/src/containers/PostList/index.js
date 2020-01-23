@@ -61,6 +61,12 @@ export class PostList extends Component {
         this.props.getPosts(this.props.id)
     }
 
+    handleLogOut = () => {
+        localStorage.removeItem("token")
+        this.props.goToHome()
+
+    }
+
 
     handleIdPostAndGoToPostDetails = (postId) =>{
         this.props.getPostId(postId);
@@ -74,7 +80,7 @@ export class PostList extends Component {
             <BackgroundDiv>
 
                     <LogoutDiv>
-                        <DetailsButton>Logout</DetailsButton>
+                        <DetailsButton onClick= {this.handleLogOut} >Logout</DetailsButton>
                     </LogoutDiv>
 
                 <PostContainer>
@@ -109,6 +115,7 @@ const mapDispatchToProps = (dispatch) => ({
     getPosts: () => dispatch(getPosts()),
     goToPostDetails: ()=> dispatch(push(routes.postdetails)),
     getPostId: (postId)=> dispatch(getPostDetail(postId)),
+    goToHome: () => dispatch(push(routes.home))
 
 })
 
