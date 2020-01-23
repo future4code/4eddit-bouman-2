@@ -8,6 +8,7 @@ import { getPostDetail } from "../../actions";
 import ArrowUpwardRoundedIcon from '@material-ui/icons/ArrowUpwardRounded';
 import ArrowDownwardRoundedIcon from '@material-ui/icons/ArrowDownwardRounded';
 import PostCreate from "../PostCreate"
+import Fade from 'react-reveal/Fade';
 
 
 const PostDiv = styled.div`
@@ -96,7 +97,7 @@ export class PostList extends Component {
                     <PostCreate/>
                     <H1Title>Posts</H1Title>
                     {this.props.posts.map((posts)=>
-
+                    <Fade bottom>
                     <PostDiv>
                       <UserName><PostedBy>Postado por: </PostedBy>{posts.username}</UserName>
                       <PostTittle>{posts.title}</PostTittle>
@@ -106,7 +107,7 @@ export class PostList extends Component {
                       <p><ArrowUpwardRoundedIcon/>({posts.votesCount})<ArrowDownwardRoundedIcon/></p>
                       <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)} >Detalhes do post</DetailsButton>
                     </PostDiv>
-
+                </Fade>
 
                     )}
 
