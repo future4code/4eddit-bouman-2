@@ -20,7 +20,6 @@ border-radius: 6px;
 font-family: verdana;
 font-size: 11px;
 border-left: 3px solid #c46210;
-
 `;
 
 const PostContainer = styled.div`
@@ -42,6 +41,7 @@ background-color: white;
 border: 1px solid grey;
 border-radius: 5px;
 margin: 10px 0 5px 0;
+font-size: 15px;
 `
 
 const PostedBy = styled.span`
@@ -49,11 +49,27 @@ color: grey;
 font-size: 9px;
 `
 
+const LogoutDiv = styled.div`
+padding: 20px 0 0 100px;
+` 
+
+const H1Title = styled.h1`
+text-align: center;
+font-family: verdana;
+color: #4d4d4d;
+`
+
 export class PostList extends Component {
     
     
     componentDidMount(dispatch) {
         this.props.getPosts(this.props.id)
+    }
+
+    handleLogOut = () => {
+        localStorage.removeItem("token")
+        this.props.goToHome()
+
     }
 
 
@@ -66,21 +82,25 @@ export class PostList extends Component {
         
         return(
             <BackgroundDiv>
-               
-                <PostCreate/>
+
+                    <LogoutDiv>
+                        <DetailsButton onClick= {this.handleLogOut} >Logout</DetailsButton>
+                    </LogoutDiv>
 
                 <PostContainer>
+
+                    <PostCreate/>
+                    <H1Title>Posts</H1Title>
                     {this.props.posts.map((posts)=>
 
-                        
+                    <PostDiv>
+                      <UserName><PostedBy>Postado por: </PostedBy>{posts.username}</UserName>
+                      {posts.text}  
+                      <div>({posts.commentsNumber}) comentários</div> 
+                      <p><ArrowUpwardRoundedIcon/><ArrowDownwardRoundedIcon/></p>
+                      <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)} >Detalhes do post</DetailsButton>
+                    </PostDiv>
 
-                        <PostDiv>
-                            <UserName><PostedBy>Postado por: </PostedBy>{posts.username}</UserName>
-                            {posts.text}  
-                            <div>({posts.commentsNumber}) comentários</div> {/* quantidade de comentários vai aqui depois*/}
-                            <p><ArrowUpwardRoundedIcon/><ArrowDownwardRoundedIcon/></p>
-                            <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)} >Detalhes do post</DetailsButton>
-                        </PostDiv>
 
                     )}
 
@@ -100,6 +120,7 @@ const mapDispatchToProps = (dispatch) => ({
     getPosts: () => dispatch(getPosts()),
     goToPostDetails: ()=> dispatch(push(routes.postdetails)),
     getPostId: (postId)=> dispatch(getPostDetail(postId)),
+    goToHome: () => dispatch(push(routes.home))
 
 })
 

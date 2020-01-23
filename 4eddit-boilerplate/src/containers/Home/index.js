@@ -30,26 +30,40 @@ max-width: 350px;
 
 `;
 
-const Home = props => {
+export class Home extends Component {
 
-    return(
-        <MainDiv>
+    componentDidMount(dispatch){
+        const token = window.localStorage.getItem("token")
+        if(token === null) {
+            this.props.goToHome()
+        } else {
+            this.props.goToPosts()
+        }
+    }
+
+
+    render(){
+        return(
+            <MainDiv>
             <MainContent>
                 <Logo src={logo}/>
                     <ButtonDiv>
-                    <Button onClick= {props.goToSingUP} size="large" variant="outlined" >Cadastrar</Button>
-                    <Button onClick= {props.goToLogin} size="large" variant="outlined" >Login</Button>
+                    <Button onClick= {this.props.goToSingUP} size="large" variant="outlined" >Cadastrar</Button>
+                    <Button onClick= {this.props.goToLogin} size="large" variant="outlined" >Login</Button>
                     </ButtonDiv>
             </MainContent>
         </MainDiv>
-    )
+
+        );
+    }
 }
 
 
 const mapDispatchToProps = (dispatch) =>({
     goToSingUP: () => dispatch(push(routes.createUser)),
-    goToLogin: () => dispatch(push(routes.login))
-
+    goToLogin: () => dispatch(push(routes.login)),
+    goToPosts: () => dispatch(push(routes.postlist)),
+    goToHome: () => dispatch(push(routes.home))
 
   })
 
