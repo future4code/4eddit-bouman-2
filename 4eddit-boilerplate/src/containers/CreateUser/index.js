@@ -11,6 +11,9 @@ import { createUser } from "../../actions";
 const MainContent = styled.div`
 display:flex;
 justify-content: center;
+background-color: #fecbbd;
+height: 100vh;
+align-items: center;
 `;
 
 
