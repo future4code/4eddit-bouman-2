@@ -9,6 +9,8 @@ import ArrowUpwardRoundedIcon from '@material-ui/icons/ArrowUpwardRounded';
 import ArrowDownwardRoundedIcon from '@material-ui/icons/ArrowDownwardRounded';
 import PostCreate from "../PostCreate";
 import { putVote } from "../../actions";
+import Fade from 'react-reveal/Fade';
+
 
 
 const PostDiv = styled.div`
@@ -31,6 +33,10 @@ const UserName = styled.p`
 border-bottom: 1px solid grey;
 margin-top: 2px;
 `
+const PostTittle = styled.p`
+font-weight: bold;
+`;
+
 const BackgroundDiv = styled.div`
 background-color: #fecbbd;
 display: flex;
@@ -93,16 +99,20 @@ export class PostList extends Component {
                     <PostCreate/>
                     <H1Title>Posts</H1Title>
                     {this.props.posts.map((posts)=>
-
+                    <Fade bottom>
                     <PostDiv>
                       <UserName><PostedBy>Postado por: </PostedBy>{posts.username}</UserName>
+                      <PostTittle>{posts.title}</PostTittle>
+                      <hr/>
                       {posts.text}  
                       <div>({posts.commentsNumber}) comentários</div> 
+
                       <p><ArrowUpwardRoundedIcon onClick={ ()=> { this.props.votePost(posts.id, 1)} }/>({posts.votesCount})
                       <ArrowDownwardRoundedIcon onClick={ ()=> { this.props.votePost(posts.id, -1)}}/></p>
+
                       <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)} >Detalhes do post</DetailsButton>
                     </PostDiv>
-
+                </Fade>
 
                     )}
 

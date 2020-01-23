@@ -163,9 +163,9 @@ export const postCreateComment = ( postId, text ) => async (dispatch) =>{
               auth: token,
           }
       })
-            
+          window.alert("Comentario Enviado")  
       dispatch(getPostDetail(postId))
-               
+      
     }catch(error){
         window.alert("Erro")
     }

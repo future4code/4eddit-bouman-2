@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import PostList from "../PostList";
+import { routes } from "../Router";
+import { push } from "connected-react-router";
 import { connect } from "react-redux";
-import { getPosts } from "../../actions";
 import styled from "styled-components";
 import { postCreateComment } from "../../actions";
 import TextField from '@material-ui/core/TextField';
@@ -43,6 +43,17 @@ const BackgroundDiv = styled.div`
 background-color: #fecbbd;
 padding: 10px;
 `
+const BackDiv = styled.div`
+padding: 20px 0 0 100px;
+` 
+
+const DetailsButton = styled.button`
+background-color: white;
+border: 1px solid grey;
+border-radius: 5px;
+margin: 10px 0 5px 0;
+font-size: 15px;
+`
 
 class PostDetails extends Component {
     constructor(props){
@@ -54,16 +65,18 @@ class PostDetails extends Component {
         }
     }
 
-    // componentDidMount(){
-    //     this.props.getPosts(this.props.posts)
-    // }
+   
 
     handleInputComments = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         })
     }
-    
+
+    handleCreateComment = () => {
+        this.props.createComment(this.props.selectedPost.id, this.state.text)
+        this.setState({text: "" })
+    }
 
     render(){
         const { selectedPost } = this.props;
@@ -71,6 +84,11 @@ class PostDetails extends Component {
         return(
 
             <BackgroundDiv>
+
+                    <BackDiv>
+                        <DetailsButton onClick= {this.props.goToPosts} >Voltar</DetailsButton>
+                    </BackDiv>
+
                 <PostDiv>                
 
                         <div>
@@ -85,7 +103,7 @@ class PostDetails extends Component {
                                 required value={this.state.text}
                                 onChange={this.handleInputComments}>
                             </TextField>
-                            <Button onClick={() => this.props.createComment(this.props.selectedPost.id, this.state.text)}>Comentar</Button>
+                            <Button onClick={this.handleCreateComment}>Comentar</Button>
                         </form>
                     </div>                                             
                                                                         
@@ -111,7 +129,11 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch) => ({
     createComment: (postId, text) => dispatch(postCreateComment(postId, text)),
     getPostId: (postId)=> dispatch(getPostDetail(postId)),
+    goToPosts: () => dispatch(push(routes.postlist))
 
 })
- export default connect(mapStateToProps, mapDispatchToProps) (PostDetails);
+ export default connect(
+     mapStateToProps, 
+     mapDispatchToProps
+     ) (PostDetails);
 

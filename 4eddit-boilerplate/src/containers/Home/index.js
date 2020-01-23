@@ -11,6 +11,8 @@ const MainDiv = styled.div`
 display:flex;
 flex-direction: column;
 padding: 10%;
+background-color: #fecbbd;
+height: 100vh;
 `;
 
 const MainContent = styled.div`
