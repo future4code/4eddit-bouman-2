@@ -171,3 +171,23 @@ export const postCreateComment = ( postId, text ) => async (dispatch) =>{
     }
 
 }
+
+export const putVote = (postId, direction) => async (dispatch) =>{
+    const token = localStorage.getItem("token")
+    
+        const data = {
+            direction,
+        }
+        try{
+            await axios.put(`${baseUrl}/posts/${postId}/vote`, data, {
+                headers: {
+                    auth: token,
+                }
+            })
+            dispatch(getPosts())
+        }catch (error){
+            window.alert("Não foi possível contabilizar seu Voto!!!")
+        }
+    
+    
+}

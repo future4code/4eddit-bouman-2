@@ -7,8 +7,10 @@ import { push } from "connected-react-router";
 import { getPostDetail } from "../../actions";
 import ArrowUpwardRoundedIcon from '@material-ui/icons/ArrowUpwardRounded';
 import ArrowDownwardRoundedIcon from '@material-ui/icons/ArrowDownwardRounded';
-import PostCreate from "../PostCreate"
+import PostCreate from "../PostCreate";
+import { putVote } from "../../actions";
 import Fade from 'react-reveal/Fade';
+
 
 
 const PostDiv = styled.div`
@@ -104,7 +106,10 @@ export class PostList extends Component {
                       <hr/>
                       {posts.text}  
                       <div>({posts.commentsNumber}) comentários</div> 
-                      <p><ArrowUpwardRoundedIcon/>({posts.votesCount})<ArrowDownwardRoundedIcon/></p>
+
+                      <p><ArrowUpwardRoundedIcon onClick={ ()=> { this.props.votePost(posts.id, 1)} }/>({posts.votesCount})
+                      <ArrowDownwardRoundedIcon onClick={ ()=> { this.props.votePost(posts.id, -1)}}/></p>
+
                       <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)} >Detalhes do post</DetailsButton>
                     </PostDiv>
                 </Fade>
@@ -127,7 +132,8 @@ const mapDispatchToProps = (dispatch) => ({
     getPosts: () => dispatch(getPosts()),
     goToPostDetails: ()=> dispatch(push(routes.postdetails)),
     getPostId: (postId)=> dispatch(getPostDetail(postId)),
-    goToHome: () => dispatch(push(routes.home))
+    goToHome: () => dispatch(push(routes.home)),
+    votePost: (direction, postId) => dispatch(putVote(direction, postId))
 
 })
 

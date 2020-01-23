@@ -85,6 +85,7 @@ class LoginPage extends Component {
 
 const mapDispatchToProps = (dispatch) =>({
   createUser: (email, password, username) => dispatch(createUser(email, password, username)),
+  
 })
 
 export default connect(
