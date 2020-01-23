@@ -7,11 +7,21 @@ import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { postLoginUser } from "../../actions"
 
+const DivContet = styled.div`
+display:flex;
+justify-content: center;
+background-color: #fecbbd;
+height: 100vh;
+align-items: center;
+`
+
+
 const LoginWrapper = styled.form`
  display: flex;
  flex-direction: column;
- align-items: center;
 `;
+
+
 
 
 class LoginPage extends Component {
@@ -37,9 +47,9 @@ class LoginPage extends Component {
     const { email, password } = this.state;
 
     return (
-     
+      <DivContet>
       <LoginWrapper>
-      
+       
         <TextField
           onChange={this.handleFieldChange}
           name="email"
@@ -55,8 +65,9 @@ class LoginPage extends Component {
           value={password}
         />
         <Button onClick={this.handleLoginButton}>Login</Button>
+        
       </LoginWrapper>
-      
+      </DivContet>
       
     );
   }
