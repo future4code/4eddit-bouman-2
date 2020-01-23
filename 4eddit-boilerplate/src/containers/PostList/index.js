@@ -89,35 +89,29 @@ export class PostList extends Component {
         
         return(
             <BackgroundDiv>
-
-                    <LogoutDiv>
-                        <DetailsButton onClick= {this.handleLogOut} >Logout</DetailsButton>
-                    </LogoutDiv>
-
+                <LogoutDiv>
+                    <DetailsButton onClick= {this.handleLogOut} >Logout</DetailsButton>
+                </LogoutDiv>
                 <PostContainer>
-
                     <PostCreate/>
-                    <H1Title>Posts</H1Title>
-                    {this.props.posts.map((posts)=>
-                    <Fade bottom>
-                    <PostDiv>
-                      <UserName><PostedBy>Postado por: </PostedBy>{posts.username}</UserName>
-                      <PostTittle>{posts.title}</PostTittle>
-                      <hr/>
-                      {posts.text}  
-                      <div>({posts.commentsNumber}) comentários</div> 
-
-                      <p><ArrowUpwardRoundedIcon onClick={ ()=> { this.props.votePost(posts.id, 1)} }/>({posts.votesCount})
-                      <ArrowDownwardRoundedIcon onClick={ ()=> { this.props.votePost(posts.id, -1)}}/></p>
-
-                      <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)} >Detalhes do post</DetailsButton>
-                    </PostDiv>
-                </Fade>
-
-                    )}
-
+                        <H1Title>Posts</H1Title>
+                        {this.props.posts.map((posts)=>
+                            <Fade bottom>
+                                <PostDiv>
+                                    <UserName><PostedBy>Postado por: </PostedBy>{posts.username}</UserName>
+                                    <PostTittle>{posts.title}</PostTittle>
+                                    <hr/>
+                                    {posts.text}  
+                                    <div>({posts.commentsNumber}) comentários</div> 
+                                    <p>
+                                        <ArrowUpwardRoundedIcon onClick={ ()=> { this.props.votePost(posts.id, 1)} }/>
+                                            ({posts.votesCount})
+                                        <ArrowDownwardRoundedIcon onClick={ ()=> { this.props.votePost(posts.id, -1)}}/>
+                                    </p>
+                                    <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)} >Detalhes do post</DetailsButton>
+                                </PostDiv>
+                            </Fade>)}
                 </PostContainer>
-
             </BackgroundDiv>
         )
     }

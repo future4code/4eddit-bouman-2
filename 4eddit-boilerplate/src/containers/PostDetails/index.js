@@ -84,19 +84,15 @@ class PostDetails extends Component {
         return(
 
             <BackgroundDiv>
-
-                    <BackDiv>
-                        <DetailsButton onClick= {this.props.goToPosts} >Voltar</DetailsButton>
-                    </BackDiv>
-
+                <BackDiv>
+                    <DetailsButton onClick= {this.props.goToPosts} >Voltar</DetailsButton>
+                </BackDiv>
                 <PostDiv>                
-
-                        <div>
-                            <h2>{selectedPost.title}</h2>
-                            <p>{selectedPost.text}</p>
-                            
-                        </div>
-                        <div>
+                    <div>
+                        <h2>{selectedPost.title}</h2>
+                        <p>{selectedPost.text}</p>
+                    </div>
+                    <div>
                         <form>
                             <TextField
                                 label="Postar Comentários" name="text" type="text"
