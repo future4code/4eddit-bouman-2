@@ -87,15 +87,27 @@ export class PostList extends Component {
 
     render(){
         
+        // let filterPost = this.props.posts.filter((post) =>{
+        //     return post.username.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 || 
+        //     post.text.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ;
+        // })
+
         return(
             <BackgroundDiv>
                 <LogoutDiv>
                     <DetailsButton onClick= {this.handleLogOut} >Logout</DetailsButton>
                 </LogoutDiv>
                 <PostContainer>
+                    
                     <PostCreate/>
                         <H1Title>Posts</H1Title>
-                        {this.props.posts.map((posts)=>
+                        {this.props.posts.sort((a,b) => {
+                            if (a.votesCount < b.votesCount) {
+                                return 1 ;
+                            } else {
+                                return -1 ;
+                            }
+                        }).map((posts)=>
                             <Fade bottom>
                                 <PostDiv>
                                     <UserName><PostedBy>Postado por: </PostedBy>{posts.username}</UserName>
