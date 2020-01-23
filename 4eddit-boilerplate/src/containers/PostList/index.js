@@ -42,12 +42,17 @@ background-color: white;
 border: 1px solid grey;
 border-radius: 5px;
 margin: 10px 0 5px 0;
+font-size: 15px;
 `
 
 const PostedBy = styled.span`
 color: grey;
 font-size: 9px;
 `
+
+const LogoutDiv = styled.div`
+padding: 20px 0 0 100px;
+` 
 
 export class PostList extends Component {
     
@@ -67,18 +72,21 @@ export class PostList extends Component {
         
         return(
             <BackgroundDiv>
-               
-                <PostCreate/>
+
+                    <LogoutDiv>
+                        <DetailsButton>Logout</DetailsButton>
+                    </LogoutDiv>
 
                 <PostContainer>
-                    {this.props.posts.map((posts)=>
 
-                        
+                    <PostCreate/>
+
+                    {this.props.posts.map((posts)=>
 
                     <PostDiv>
                       <UserName><PostedBy>Postado por: </PostedBy>{posts.username}</UserName>
                       {posts.text}  
-                      <div>(0) comentários</div> {/* quantidade de comentários vai aqui depois*/}
+                      <div>({posts.commentsNumber}) comentários</div> 
                       <p><ArrowUpwardRoundedIcon/><ArrowDownwardRoundedIcon/></p>
                       <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)} >Detalhes do post</DetailsButton>
                     </PostDiv>

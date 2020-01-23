@@ -13,7 +13,6 @@ const Create = styled.form`
  flex-direction: column;
 `;
 
-
 class PostCreate extends Component {
   constructor(props) {
     super(props);
@@ -41,11 +40,12 @@ class PostCreate extends Component {
         
       <Create>
       
+        <h2>Criar post</h2>
         <TextField
           onChange={this.handleFieldChange}
           name="title"
           type="text"
-          label="title"
+          label="Título"
           value={title}
         />
         <TextField
