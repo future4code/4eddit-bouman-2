@@ -54,16 +54,18 @@ class PostDetails extends Component {
         }
     }
 
-    // componentDidMount(){
-    //     this.props.getPosts(this.props.posts)
-    // }
+   
 
     handleInputComments = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         })
     }
-    
+
+    handleCreateComment = () => {
+        this.props.createComment(this.props.selectedPost.id, this.state.text)
+        this.setState({text: "" })
+    }
 
     render(){
         const { selectedPost } = this.props;
@@ -85,7 +87,7 @@ class PostDetails extends Component {
                                 required value={this.state.text}
                                 onChange={this.handleInputComments}>
                             </TextField>
-                            <Button onClick={() => this.props.createComment(this.props.selectedPost.id, this.state.text)}>Comentar</Button>
+                            <Button onClick={this.handleCreateComment}>Comentar</Button>
                         </form>
                     </div>                                             
                                                                         
