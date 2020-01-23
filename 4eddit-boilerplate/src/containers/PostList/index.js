@@ -20,7 +20,6 @@ border-radius: 6px;
 font-family: verdana;
 font-size: 11px;
 border-left: 3px solid #c46210;
-
 `;
 
 const PostContainer = styled.div`
@@ -54,6 +53,12 @@ const LogoutDiv = styled.div`
 padding: 20px 0 0 100px;
 ` 
 
+const H1Title = styled.h1`
+text-align: center;
+font-family: verdana;
+color: #4d4d4d;
+`
+
 export class PostList extends Component {
     
     
@@ -80,7 +85,7 @@ export class PostList extends Component {
                 <PostContainer>
 
                     <PostCreate/>
-
+                    <H1Title>Posts</H1Title>
                     {this.props.posts.map((posts)=>
 
                     <PostDiv>
