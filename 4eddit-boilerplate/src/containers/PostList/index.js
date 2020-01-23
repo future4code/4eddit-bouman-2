@@ -79,7 +79,6 @@ export class PostList extends Component {
     }
 
     render(){
-        const { getPostId } = this.props;
         
         return(
             <BackgroundDiv>
@@ -101,6 +100,7 @@ export class PostList extends Component {
                       <p><ArrowUpwardRoundedIcon/><ArrowDownwardRoundedIcon/></p>
                       <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)} >Detalhes do post</DetailsButton>
                     </PostDiv>
+
 
                     )}
 

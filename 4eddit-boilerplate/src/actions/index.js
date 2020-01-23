@@ -3,7 +3,6 @@ import { routes } from "../containers/Router";
 import { push } from "connected-react-router";
 
 const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/fourEddit"
-const token = localStorage.getItem("token")
 
 const postLogin = (login) => ({
     type: 'POST_LOGIN',
@@ -33,10 +32,17 @@ const setCreatePost = (createpost) => ({
     }
 })
 
-export const setPostSelect = (postId) => ({
+const setPostSelect = (postId) => ({
     type: "SET_POSTS_ID",
     payload: {
         postId
+    }
+})
+
+const setCreateComment = (createcomment) => ({
+    type: "SET_COMMENTS",
+    payload: {
+        createcomment,
     }
 })
 
@@ -64,6 +70,7 @@ export const postLoginUser = (email, password) => async (dispatch) =>{
 
 export const createUser = (email, password, username) => async (dispatch) =>{
 
+
     const data = {
         email,
         password, 
@@ -83,6 +90,9 @@ export const createUser = (email, password, username) => async (dispatch) =>{
 }
 
 export const createPost = ( text, title) => async (dispatch) => {
+
+    const token = localStorage.getItem("token")
+
 
     const newPost = {
         text,
@@ -105,6 +115,9 @@ export const createPost = ( text, title) => async (dispatch) => {
 
 export const getPosts = () => async (dispatch) => {
     
+    const token = localStorage.getItem("token")
+
+
     try{
     const response = await axios.get(`${baseUrl}/posts`,{
         headers: {
@@ -121,6 +134,8 @@ export const getPosts = () => async (dispatch) => {
 
 export const getPostDetail = (postId) => async (dispatch) =>{
 
+    const token = localStorage.getItem("token")
+
     try{
         const response = await axios.get(`${baseUrl}/posts/${postId}`, {
             headers: {
@@ -132,4 +147,27 @@ export const getPostDetail = (postId) => async (dispatch) =>{
     }catch(error){
         window.alert("Erro")
     }
+}
+
+export const postCreateComment = ( postId, text ) => async (dispatch) =>{
+  
+    const token = localStorage.getItem("token")
+
+    const newComment = {
+        text
+    }
+
+    try{
+      await axios.post(`${baseUrl}/posts/${postId}/comment`, newComment, {
+          headers: {
+              auth: token,
+          }
+      })
+            
+      dispatch(getPostDetail(postId))
+               
+    }catch(error){
+        window.alert("Erro")
+    }
+
 }

@@ -3,6 +3,12 @@ import PostList from "../PostList";
 import { connect } from "react-redux";
 import { getPosts } from "../../actions";
 import styled from "styled-components";
+import { postCreateComment } from "../../actions";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { getPostDetail } from "../../actions";
+
+
 
 
 /*Formatação do espaço branco do comentário */
@@ -43,27 +49,46 @@ class PostDetails extends Component {
         super(props)
 
         this.state = {
+            text: "",
 
         }
     }
 
-    componentDidMount(){
-        this.props.getPosts(this.props.posts)
+    // componentDidMount(){
+    //     this.props.getPosts(this.props.posts)
+    // }
+
+    handleInputComments = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
     }
+    
 
     render(){
         const { selectedPost } = this.props;
 
-        console.log(this.props.selectedPost.comments)
-
         return(
+
             <BackgroundDiv>
                 <PostDiv>                
+
                         <div>
                             <h2>{selectedPost.title}</h2>
                             <p>{selectedPost.text}</p>
                             
                         </div>
+                        <div>
+                        <form>
+                            <TextField
+                                label="Postar Comentários" name="text" type="text"
+                                required value={this.state.text}
+                                onChange={this.handleInputComments}>
+                            </TextField>
+                            <Button onClick={() => this.props.createComment(this.props.selectedPost.id, this.state.text)}>Comentar</Button>
+                        </form>
+                    </div>                                             
+                                                                        
                         {selectedPost.comments && selectedPost.comments.map((itemPost) =>
                             <CommentContainer>
                                 <CommentAuthor>{itemPost.username}</CommentAuthor>
@@ -80,10 +105,12 @@ class PostDetails extends Component {
 const mapStateToProps = state => ({
     posts: state.posts.allPosts,
     selectedPost: state.posts.postId,
+    allComments: state.posts.allComments,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    getPosts: () => dispatch(getPosts()),
+    createComment: (postId, text) => dispatch(postCreateComment(postId, text)),
+    getPostId: (postId)=> dispatch(getPostDetail(postId)),
 
 })
  export default connect(mapStateToProps, mapDispatchToProps) (PostDetails);
