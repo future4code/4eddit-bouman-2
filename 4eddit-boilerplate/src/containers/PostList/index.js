@@ -63,7 +63,6 @@ export class PostList extends Component {
     }
 
     render(){
-        const { getPostId } = this.props;
         
         return(
             <BackgroundDiv>
@@ -75,13 +74,13 @@ export class PostList extends Component {
 
                         
 
-                    <PostDiv>
-                      <UserName><PostedBy>Postado por: </PostedBy>{posts.username}</UserName>
-                      {posts.text}  
-                      <div>(0) comentários</div> {/* quantidade de comentários vai aqui depois*/}
-                      <p><ArrowUpwardRoundedIcon/><ArrowDownwardRoundedIcon/></p>
-                      <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)} >Detalhes do post</DetailsButton>
-                    </PostDiv>
+                        <PostDiv>
+                            <UserName><PostedBy>Postado por: </PostedBy>{posts.username}</UserName>
+                            {posts.text}  
+                            <div>({posts.commentsNumber}) comentários</div> {/* quantidade de comentários vai aqui depois*/}
+                            <p><ArrowUpwardRoundedIcon/><ArrowDownwardRoundedIcon/></p>
+                            <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)} >Detalhes do post</DetailsButton>
+                        </PostDiv>
 
                     )}
 
