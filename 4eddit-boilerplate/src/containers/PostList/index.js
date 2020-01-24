@@ -12,7 +12,6 @@ import { putVote } from "../../actions";
 import Fade from 'react-reveal/Fade';
 
 
-
 const PostDiv = styled.div`
     border: 1px solid #cdcdcc;
     padding: 5px;
@@ -49,7 +48,12 @@ const DetailsButton = styled.button`
     border-radius: 5px;
     margin: 10px 0 5px 0;
     font-size: 15px;
-`
+    cursor: pointer;
+`;
+
+const ButtonDirection = styled.label`
+    cursor: pointer;
+`;
 
 const PostedBy = styled.span`
     color: grey;
@@ -80,7 +84,7 @@ export class PostList extends Component {
     }
 
 
-    handleIdPostAndGoToPostDetails = (postId) =>{
+    handleIdPostAndGoToPostDetails = (postId, event) =>{
         this.props.getPostId(postId);
         this.props.goToPostDetails();
     }
@@ -115,11 +119,10 @@ export class PostList extends Component {
                                     <hr/>
                                     {posts.text}  
                                     <div>({posts.commentsNumber}) comentários</div> 
-                                    <p>
-                                        <ArrowUpwardRoundedIcon onClick={ ()=> { this.props.votePost(posts.id, 1)} }/>
-                                            ({posts.votesCount})
-                                        <ArrowDownwardRoundedIcon onClick={ ()=> { this.props.votePost(posts.id, -1)}}/>
-                                    </p>
+                                    <div>
+                                         <ButtonDirection><ArrowUpwardRoundedIcon  onClick={ ()=> { this.props.votePost(posts.id, 1)} }/></ButtonDirection>({posts.votesCount})
+                                         <ButtonDirection><ArrowDownwardRoundedIcon onClick={ ()=> { this.props.votePost(posts.id, -1)}}/></ButtonDirection>
+                                     </div>
                                     <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)} >Detalhes do post</DetailsButton>
                                 </PostDiv>
                             </Fade>)}

@@ -32,21 +32,13 @@ const setCreatePost = (createpost) => ({
     }
 })
 
-const setPostSelect = (postId) => ({
-    type: "SET_POSTS_ID",
+
+const setPostDetail = (detail) => ({
+    type: "SET_POST_DETAIL",
     payload: {
-        postId
+        detail,
     }
 })
-
-const setCreateComment = (createcomment) => ({
-    type: "SET_COMMENTS",
-    payload: {
-        createcomment,
-    }
-})
-
-
 
 export const postLoginUser = (email, password) => async (dispatch) =>{
   
@@ -108,7 +100,7 @@ export const createPost = ( text, title) => async (dispatch) => {
         dispatch(setCreatePost())
         window.alert("Post criado com sucesso!!!")
     }catch(erro){
-        window.alert("Erro")
+        window.alert("Erro ao Criar Post")
     }
 }
 
@@ -126,7 +118,7 @@ export const getPosts = () => async (dispatch) => {
     })
     dispatch(setPosts(response.data.posts))
     }catch(error){
-        window.alert("Erro")
+        window.alert("Erro ao Buscar")
 
     }
 
@@ -142,10 +134,10 @@ export const getPostDetail = (postId) => async (dispatch) =>{
                 auth: token,
             }
         })
-        dispatch(setPostSelect(response.data.post))
+        dispatch(setPostDetail(response.data.post))
         
     }catch(error){
-        window.alert("Erro")
+        window.alert("Erro ao Buscar Detalhes")
     }
 }
 
@@ -167,7 +159,7 @@ export const postCreateComment = ( postId, text ) => async (dispatch) =>{
       dispatch(getPostDetail(postId))
       
     }catch(error){
-        window.alert("Erro")
+        window.alert("Erro ao criar um comentario")
     }
 
 }
@@ -188,6 +180,23 @@ export const putVote = (postId, direction) => async (dispatch) =>{
         }catch (error){
             window.alert("Não foi possível contabilizar seu Voto!!!")
         }
-    
-    
+}
+
+export const putVoteComment = (postId, commentId, direction) => async (dispatch) =>{
+    const token = localStorage.getItem("token")
+
+    const data = {
+        direction,
+    }
+
+    try{
+        await axios.put(`${baseUrl}/posts/${postId}/comment/${commentId}/vote`, data, {
+            headers: {
+                auth: token,
+            }
+        })
+        dispatch(getPostDetail(postId, commentId))
+    }catch(error){
+        window.alert("Não foi possível contabilizar seu Voto!!!")
+    }
 }

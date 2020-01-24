@@ -43,10 +43,10 @@ export class Home extends Component {
         }
     }
 
-
-    render(){
+  render(){
         return(
             <MainDiv>
+
             <MainContent>
                 <Logo src={logo}/>
                     <ButtonDiv>

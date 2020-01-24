@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button"
 import styled from "styled-components";
-import { routes } from "../Router/index";
 import { connect } from "react-redux";
-import { push } from "connected-react-router";
 import { createPost } from "../../actions/";
 
 const CreatePostContainer = styled.div`
@@ -61,20 +59,20 @@ class PostCreate extends Component {
       
         <CreatePostContainer>
           <H1Title>Criar post</H1Title>
-          <TextField
-            onChange={this.handleFieldChange}
-            name="title"
-            type="text"
-            label="Título"
-            value={title}
-          />
-          <TextField
-            onChange={this.handleFieldChange}
-            name="text"
-            type="text"
-            label="Texto"
-            value={text}
-          />
+            <TextField
+              onChange={this.handleFieldChange}
+              name="title"
+              type="text"
+              label="Título"
+              value={title}
+            />
+            <TextField
+              onChange={this.handleFieldChange}
+              name="text"
+              type="text"
+              label="Texto"
+              value={text}
+            />
 
           <Button onClick={this.handlePostButton}>Enviar</Button>
         </CreatePostContainer>

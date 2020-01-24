@@ -7,7 +7,9 @@ import { postCreateComment } from "../../actions";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { getPostDetail } from "../../actions";
-
+import ArrowUpwardRoundedIcon from '@material-ui/icons/ArrowUpwardRounded';
+import ArrowDownwardRoundedIcon from '@material-ui/icons/ArrowDownwardRounded';
+import { putVoteComment } from "../../actions";
 
 
 
@@ -53,7 +55,11 @@ const DetailsButton = styled.button`
     border-radius: 5px;
     margin: 10px 0 5px 0;
     font-size: 15px;
+    cursor: pointer;
 `
+const ButtonDirection = styled.label`
+    cursor: pointer;
+`;
 
 class PostDetails extends Component {
     constructor(props){
@@ -64,14 +70,17 @@ class PostDetails extends Component {
         }
     }
 
+
+
    handleInputComments = (event) => {
-        this.setState({
+     this.setState({
             [event.target.name]: event.target.value
         })
     }
 
-    handleCreateComment = () => {
-        this.props.createComment(this.props.selectedPost.id, this.state.text)
+    handleCreateComment = (event) => {
+        event.preventDefault(event)
+        this.props.createComment(this.props.selectedPostId, this.state.text)
         this.setState({text: "" })
     }
 
@@ -84,44 +93,56 @@ class PostDetails extends Component {
                 <BackDiv>
                     <DetailsButton onClick= {this.props.goToPosts} >Voltar</DetailsButton>
                 </BackDiv>
-                <PostDiv>                
-                    <div>
-                        <h2>{selectedPost.title}</h2>
-                        <p>{selectedPost.text}</p>
-                    </div>
-                    <div>
-                        <form>
-                            <TextField
-                                label="Postar Comentários" name="text" type="text"
-                                required value={this.state.text}
-                                onChange={this.handleInputComments}>
-                            </TextField>
-                            <Button onClick={this.handleCreateComment}>Comentar</Button>
-                        </form>
-                    </div>                                             
-                                                                        
+
+                    <PostDiv>                
+
+                        <div>
+                            <h2>{selectedPost.title}</h2>
+                            <p>{selectedPost.text}</p>
+                            
+                        </div>
+                        <div>
+                            <form>
+                                <TextField
+                                    label="O que você está pensando?" name="text" type="text"
+                                    variant="outlined"
+                                    rowsMax="4"
+                                    required value={this.state.text}
+                                    onChange={this.handleInputComments}>
+                                </TextField>
+                                    <Button onClick={this.handleCreateComment}>Responder</Button>
+                            </form>
+                        </div>                                             
                         {selectedPost.comments && selectedPost.comments.map((itemPost) =>
                             <CommentContainer>
                                 <CommentAuthor>{itemPost.username}</CommentAuthor>
                                 <ItemPost>{itemPost.text}</ItemPost>
+                                <div>
+                                    <ButtonDirection><ArrowUpwardRoundedIcon onClick={ ()=> { this.props.voteComment(selectedPost.id, itemPost.id, 1)}}/></ButtonDirection>
+                                        ({itemPost.votesCount})
+                                    <ButtonDirection><ArrowDownwardRoundedIcon onClick={ ()=> { this.props.voteComment(this.props.selectedPost.id, itemPost.id, -1)}}/></ButtonDirection>
+                                </div>
                             </CommentContainer>
                         )}
-                </PostDiv>
+                        
+                    </PostDiv>
+
             </BackgroundDiv>
         )
     }
 }
 
 const mapStateToProps = state => ({
-    posts: state.posts.allPosts,
-    selectedPost: state.posts.postId,
-    allComments: state.posts.allComments,
+    selectedPostId: state.posts.selectedPostId,
+    selectedPost: state.posts.selectedPost,
+
 })
 
 const mapDispatchToProps = (dispatch) => ({
     createComment: (postId, text) => dispatch(postCreateComment(postId, text)),
-    getPostId: (postId)=> dispatch(getPostDetail(postId)),
-    goToPosts: () => dispatch(push(routes.postlist))
+    getPostDetailId: (postId)=> dispatch(getPostDetail(postId)),
+    goToPosts: () => dispatch(push(routes.postlist)),
+    voteComment: (postId, commentId, direction) => dispatch(putVoteComment(postId, commentId, direction))
 
 })
  export default connect(

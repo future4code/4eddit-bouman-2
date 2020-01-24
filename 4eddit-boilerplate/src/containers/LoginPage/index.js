@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button"
 import styled from "styled-components";
-import { routes } from "../Router/index";
 import { connect } from "react-redux";
-import { push } from "connected-react-router";
 import { postLoginUser } from "../../actions"
 
 const DivContet = styled.div`
@@ -64,6 +62,7 @@ class LoginPage extends Component {
             label="password"
             value={password}
           />
+
           <Button onClick={this.handleLoginButton}>Login</Button>
         </LoginWrapper>
       </DivContet>     
