@@ -20,8 +20,8 @@ const CreatePostContainer = styled.div`
 `;
 
 const Create = styled.form`
- display: flex;
- flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `;
 
 const H1Title = styled.h1`

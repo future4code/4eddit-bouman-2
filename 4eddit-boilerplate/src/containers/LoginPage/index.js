@@ -15,8 +15,8 @@ const DivContet = styled.div`
 
 
 const LoginWrapper = styled.form`
- display: flex;
- flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `;
 
 
@@ -62,11 +62,10 @@ class LoginPage extends Component {
             label="password"
             value={password}
           />
-            <Button onClick={this.handleLoginButton}>Login</Button>
-        
+
+          <Button onClick={this.handleLoginButton}>Login</Button>
         </LoginWrapper>
-      </DivContet>
-      
+      </DivContet>     
     );
   }
 }

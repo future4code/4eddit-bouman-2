@@ -91,37 +91,42 @@ export class PostList extends Component {
 
     render(){
         
+        // let filterPost = this.props.posts.filter((post) =>{
+        //     return post.username.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 || 
+        //     post.text.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ;
+        // })
+
         return(
             <BackgroundDiv>
-
-                    <LogoutDiv>
-                        <DetailsButton onClick= {this.handleLogOut} >Logout</DetailsButton>
-                    </LogoutDiv>
-
-                        <PostContainer>
-
-                            <PostCreate/>
-                                <H1Title>Posts</H1Title>
-                                    {this.props.posts.map((posts)=>
-                                        <Fade bottom>
-                                            <PostDiv>
-                                                 <UserName><PostedBy>Postado por: </PostedBy>{posts.username}</UserName>
-                                                 <PostTittle>{posts.title}</PostTittle>
-                                                <hr/>
-                                                    {posts.text}  
-                                                <div>({posts.commentsNumber}) comentários</div> 
-                                                <div>
-                                                    <ButtonDirection><ArrowUpwardRoundedIcon  onClick={ ()=> { this.props.votePost(posts.id, 1)} }/></ButtonDirection>({posts.votesCount})
-                                                    <ButtonDirection><ArrowDownwardRoundedIcon onClick={ ()=> { this.props.votePost(posts.id, -1)}}/></ButtonDirection>
-                                                </div>
-                                                    <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)} >Detalhes do post</DetailsButton>
-                                            </PostDiv>
-                                        </Fade>
-
-                                    )}
-
-                        </PostContainer>
-
+                <LogoutDiv>
+                    <DetailsButton onClick= {this.handleLogOut} >Logout</DetailsButton>
+                </LogoutDiv>
+                <PostContainer>
+                    
+                    <PostCreate/>
+                        <H1Title>Posts</H1Title>
+                            {this.props.posts.sort((a,b) => {
+                                if (a.votesCount < b.votesCount) {
+                                    return 1 ;
+                                }else {
+                                    return -1 ;
+                            }
+                        }).map((posts)=>
+                            <Fade bottom>
+                                <PostDiv>
+                                    <UserName><PostedBy>Postado por: </PostedBy>{posts.username}</UserName>
+                                    <PostTittle>{posts.title}</PostTittle>
+                                    <hr/>
+                                    {posts.text}  
+                                    <div>({posts.commentsNumber}) comentários</div> 
+                                    <div>
+                                         <ButtonDirection><ArrowUpwardRoundedIcon  onClick={ ()=> { this.props.votePost(posts.id, 1)} }/></ButtonDirection>({posts.votesCount})
+                                         <ButtonDirection><ArrowDownwardRoundedIcon onClick={ ()=> { this.props.votePost(posts.id, -1)}}/></ButtonDirection>
+                                     </div>
+                                    <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)} >Detalhes do post</DetailsButton>
+                                </PostDiv>
+                            </Fade>)}
+                </PostContainer>
             </BackgroundDiv>
         )
     }

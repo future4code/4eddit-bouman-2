@@ -64,16 +64,16 @@ const ButtonDirection = styled.label`
 class PostDetails extends Component {
     constructor(props){
         super(props)
-
-        this.state = {
-            text: "",
+            this.state = {
+                text: "",
 
         }
     }
 
 
-    handleInputComments = (event) => {
-        this.setState({
+
+   handleInputComments = (event) => {
+     this.setState({
             [event.target.name]: event.target.value
         })
     }
@@ -90,7 +90,6 @@ class PostDetails extends Component {
         return(
 
             <BackgroundDiv>
-
                 <BackDiv>
                     <DetailsButton onClick= {this.props.goToPosts} >Voltar</DetailsButton>
                 </BackDiv>
@@ -114,7 +113,6 @@ class PostDetails extends Component {
                                     <Button onClick={this.handleCreateComment}>Responder</Button>
                             </form>
                         </div>                                             
-                                                                   
                         {selectedPost.comments && selectedPost.comments.map((itemPost) =>
                             <CommentContainer>
                                 <CommentAuthor>{itemPost.username}</CommentAuthor>
@@ -126,8 +124,9 @@ class PostDetails extends Component {
                                 </div>
                             </CommentContainer>
                         )}
-
+                        
                     </PostDiv>
+
             </BackgroundDiv>
         )
     }

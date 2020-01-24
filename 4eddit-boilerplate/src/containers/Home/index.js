@@ -43,19 +43,18 @@ export class Home extends Component {
         }
     }
 
-
-    render(){
+  render(){
         return(
             <MainDiv>
-                <MainContent>
-                    <Logo src={logo}/>
-                        <ButtonDiv>
-                            <Button onClick= {this.props.goToSingUP} size="large" variant="outlined" >Cadastrar</Button>
-                            <Button onClick= {this.props.goToLogin} size="large" variant="outlined" >Login</Button>
-                        </ButtonDiv>
-                </MainContent>
-            </MainDiv>
 
+            <MainContent>
+                <Logo src={logo}/>
+                    <ButtonDiv>
+                        <Button onClick= {this.props.goToSingUP} size="large" variant="outlined" >Cadastrar</Button>
+                        <Button onClick= {this.props.goToLogin} size="large" variant="outlined" >Login</Button>
+                    </ButtonDiv>
+            </MainContent>
+        </MainDiv>
         );
     }
 }
