@@ -80,8 +80,8 @@ class PostDetails extends Component {
     }
 
     handleCreateComment = (event) => {
-        event.preventDefault(event)
-        this.props.createComment(this.props.selectedPostId, this.state.text)
+        event.preventDefault()
+        this.props.createComment(this.props.selectedPost.id, this.state.text)
         this.setState({text: "" })
     }
 
@@ -96,7 +96,7 @@ class PostDetails extends Component {
                                 <div>
                                     <ButtonDirection><ArrowUpwardRoundedIcon onClick={ ()=> { this.props.voteComment(selectedPost.id, itemPost.id, 1)}}/></ButtonDirection>
                                         ({itemPost.votesCount})
-                                    <ButtonDirection><ArrowDownwardRoundedIcon onClick={ ()=> { this.props.voteComment(this.props.selectedPost.id, itemPost.id, -1)}}/></ButtonDirection>
+                                    <ButtonDirection><ArrowDownwardRoundedIcon onClick={ ()=> { this.props.voteComment(selectedPost.id, itemPost.id, -1)}}/></ButtonDirection>
                                 </div>
                             </CommentContainer>
                         )}
