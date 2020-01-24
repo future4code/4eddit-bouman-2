@@ -8,17 +8,17 @@ import { push } from "connected-react-router";
 import { postLoginUser } from "../../actions"
 
 const DivContet = styled.div`
-display:flex;
-justify-content: center;
-background-color: #fecbbd;
-height: 100vh;
-align-items: center;
+  display:flex;
+  justify-content: center;
+  background-color: #fecbbd;
+  height: 100vh;
+  align-items: center;
 `
 
 
 const LoginWrapper = styled.form`
- display: flex;
- flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `;
 
 
@@ -48,27 +48,25 @@ class LoginPage extends Component {
 
     return (
       <DivContet>
-      <LoginWrapper>
+        <LoginWrapper>
        
-        <TextField
-          onChange={this.handleFieldChange}
-          name="email"
-          type="email"
-          label="E-mail"
-          value={email}
-        />
-        <TextField
-          onChange={this.handleFieldChange}
-          name="password"
-          type="password"
-          label="password"
-          value={password}
-        />
-        <Button onClick={this.handleLoginButton}>Login</Button>
-        
-      </LoginWrapper>
-      </DivContet>
-      
+          <TextField
+            onChange={this.handleFieldChange}
+            name="email"
+            type="email"
+            label="E-mail"
+            value={email}
+          />
+          <TextField
+            onChange={this.handleFieldChange}
+            name="password"
+            type="password"
+            label="password"
+            value={password}
+          />
+          <Button onClick={this.handleLoginButton}>Login</Button>
+        </LoginWrapper>
+      </DivContet>     
     );
   }
 }

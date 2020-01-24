@@ -13,61 +13,58 @@ import { getPostDetail } from "../../actions";
 
 /*Formatação do espaço branco do comentário */
 const PostDiv = styled.div`
-border: 1px solid #cdcdcc;
-padding: 5px;
-margin: 10px auto 10px auto;
-background-color: white;
-max-width: 50%;
-border-radius: 6px;
-font-family: verdana;
-font-size: 11px;
-border-left: 3px solid #c46210;
+    border: 1px solid #cdcdcc;
+    padding: 5px;
+    margin: 10px auto 10px auto;
+    background-color: white;
+    max-width: 50%;
+    border-radius: 6px;
+    font-family: verdana;
+    font-size: 11px;
+    border-left: 3px solid #c46210;
 `
 /*testes de formatação pro username + comentário*/
 const CommentAuthor = styled.p`
-margin: 2px 0 0 5px;
-color: black;
-font-weight: bold;
+    margin: 2px 0 0 5px;
+    color: black;
+    font-weight: bold;
 `
 const ItemPost = styled.p`
-margin: 2px;
-color: black;
+    margin: 2px;
+    color: black;
 `
 const CommentContainer = styled.div`
-margin: 5px 5px 5px 10px;
-border: 1px solid #fee5de;
-border-radius: 6px;
-background-color:#fee5de; 
+    margin: 5px 5px 5px 10px;
+    border: 1px solid #fee5de;
+    border-radius: 6px;
+    background-color:#fee5de; 
 ` 
 const BackgroundDiv = styled.div`
-background-color: #fecbbd;
-padding: 10px;
+    background-color: #fecbbd;
+    padding: 10px;
 `
 const BackDiv = styled.div`
-padding: 20px 0 0 100px;
+    padding: 20px 0 0 100px;
 ` 
 
 const DetailsButton = styled.button`
-background-color: white;
-border: 1px solid grey;
-border-radius: 5px;
-margin: 10px 0 5px 0;
-font-size: 15px;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin: 10px 0 5px 0;
+    font-size: 15px;
 `
 
 class PostDetails extends Component {
     constructor(props){
         super(props)
-
-        this.state = {
-            text: "",
+            this.state = {
+                text: "",
 
         }
     }
 
-   
-
-    handleInputComments = (event) => {
+   handleInputComments = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         })
@@ -84,19 +81,15 @@ class PostDetails extends Component {
         return(
 
             <BackgroundDiv>
-
-                    <BackDiv>
-                        <DetailsButton onClick= {this.props.goToPosts} >Voltar</DetailsButton>
-                    </BackDiv>
-
+                <BackDiv>
+                    <DetailsButton onClick= {this.props.goToPosts} >Voltar</DetailsButton>
+                </BackDiv>
                 <PostDiv>                
-
-                        <div>
-                            <h2>{selectedPost.title}</h2>
-                            <p>{selectedPost.text}</p>
-                            
-                        </div>
-                        <div>
+                    <div>
+                        <h2>{selectedPost.title}</h2>
+                        <p>{selectedPost.text}</p>
+                    </div>
+                    <div>
                         <form>
                             <TextField
                                 label="Postar Comentários" name="text" type="text"
@@ -113,7 +106,6 @@ class PostDetails extends Component {
                                 <ItemPost>{itemPost.text}</ItemPost>
                             </CommentContainer>
                         )}
-
                 </PostDiv>
             </BackgroundDiv>
         )

@@ -8,28 +8,28 @@ import { push } from "connected-react-router";
 import { createPost } from "../../actions/";
 
 const CreatePostContainer = styled.div`
-display: flex;
-flex-direction: column;
-padding: 5px;
-margin: 10px auto 10px auto;
-border: 1px solid #cdcdcc;
-border-left: 3px solid #c46210;
-border-radius: 6px;
-background-color: white;
-width: 590px;
-font-family: verdana;
-font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  margin: 10px auto 10px auto;
+  border: 1px solid #cdcdcc;
+  border-left: 3px solid #c46210;
+  border-radius: 6px;
+  background-color: white;
+  width: 590px;
+  font-family: verdana;
+  font-size: 11px;
 `;
 
 const Create = styled.form`
- display: flex;
- flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `;
 
 const H1Title = styled.h1`
-text-align: center;
-font-family: verdana;
-color: #4d4d4d;
+  text-align: center;
+  font-family: verdana;
+  color: #4d4d4d;
 `
 
 class PostCreate extends Component {

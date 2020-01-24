@@ -8,17 +8,17 @@ import { push } from "connected-react-router";
 
 
 const MainDiv = styled.div`
-display:flex;
-flex-direction: column;
-padding: 10%;
-background-color: #fecbbd;
-height: 100vh;
+    display:flex;
+    flex-direction: column;
+    padding: 10%;
+    background-color: #fecbbd;
+    height: 100vh;
 `;
 
 const MainContent = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 
 const ButtonDiv = styled.div`
@@ -27,8 +27,8 @@ const ButtonDiv = styled.div`
 
 
 const Logo = styled.img`
-margin-bottom: 100px;
-max-width: 350px;
+    margin-bottom: 100px;
+    max-width: 350px;
 
 `;
 
@@ -50,12 +50,11 @@ export class Home extends Component {
             <MainContent>
                 <Logo src={logo}/>
                     <ButtonDiv>
-                    <Button onClick= {this.props.goToSingUP} size="large" variant="outlined" >Cadastrar</Button>
-                    <Button onClick= {this.props.goToLogin} size="large" variant="outlined" >Login</Button>
+                        <Button onClick= {this.props.goToSingUP} size="large" variant="outlined" >Cadastrar</Button>
+                        <Button onClick= {this.props.goToLogin} size="large" variant="outlined" >Login</Button>
                     </ButtonDiv>
             </MainContent>
         </MainDiv>
-
         );
     }
 }
