@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { routes } from "../Router";
 import { push } from "connected-react-router";
 import { connect } from "react-redux";
@@ -10,6 +10,7 @@ import { getPostDetail } from "../../actions";
 import ArrowUpwardRoundedIcon from '@material-ui/icons/ArrowUpwardRounded';
 import ArrowDownwardRoundedIcon from '@material-ui/icons/ArrowDownwardRounded';
 import { putVoteComment } from "../../actions";
+import Loading from "../../components/Loading"
 
 
 
@@ -79,13 +80,28 @@ class PostDetails extends Component {
     }
 
     handleCreateComment = (event) => {
-        event.preventDefault(event)
-        this.props.createComment(this.props.selectedPostId, this.state.text)
+        event.preventDefault()
+        this.props.createComment(this.props.selectedPost.id, this.state.text)
         this.setState({text: "" })
     }
 
     render(){
         const { selectedPost } = this.props;
+        let loadingPage = !selectedPost.comments ? <Loading/> : (
+            <Fragment>
+                    {selectedPost.comments && selectedPost.comments.map((itemPost) =>
+                            <CommentContainer>
+                                <CommentAuthor>{itemPost.username}</CommentAuthor>
+                                <ItemPost>{itemPost.text}</ItemPost>
+                                <div>
+                                    <ButtonDirection><ArrowUpwardRoundedIcon onClick={ ()=> { this.props.voteComment(selectedPost.id, itemPost.id, 1)}}/></ButtonDirection>
+                                        ({itemPost.votesCount})
+                                    <ButtonDirection><ArrowDownwardRoundedIcon onClick={ ()=> { this.props.voteComment(selectedPost.id, itemPost.id, -1)}}/></ButtonDirection>
+                                </div>
+                            </CommentContainer>
+                        )}
+            </Fragment>
+        ) 
 
         return(
 
@@ -104,7 +120,7 @@ class PostDetails extends Component {
                         <div>
                             <form>
                                 <TextField
-                                    label="O que você está pensando?" name="text" type="text"
+                                    label="Comentário!" name="text" type="text"
                                     variant="outlined"
                                     rowsMax="4"
                                     required value={this.state.text}
@@ -113,20 +129,8 @@ class PostDetails extends Component {
                                     <Button onClick={this.handleCreateComment}>Responder</Button>
                             </form>
                         </div>                                             
-                        {selectedPost.comments && selectedPost.comments.map((itemPost) =>
-                            <CommentContainer>
-                                <CommentAuthor>{itemPost.username}</CommentAuthor>
-                                <ItemPost>{itemPost.text}</ItemPost>
-                                <div>
-                                    <ButtonDirection><ArrowUpwardRoundedIcon onClick={ ()=> { this.props.voteComment(selectedPost.id, itemPost.id, 1)}}/></ButtonDirection>
-                                        ({itemPost.votesCount})
-                                    <ButtonDirection><ArrowDownwardRoundedIcon onClick={ ()=> { this.props.voteComment(this.props.selectedPost.id, itemPost.id, -1)}}/></ButtonDirection>
-                                </div>
-                            </CommentContainer>
-                        )}
-                        
+                        {loadingPage}
                     </PostDiv>
-
             </BackgroundDiv>
         )
     }
