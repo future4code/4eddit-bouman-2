@@ -12,58 +12,62 @@ import { putVote } from "../../actions";
 import Fade from 'react-reveal/Fade';
 
 
-
 const PostDiv = styled.div`
-border: 1px solid #cdcdcc;
-padding: 5px;
-margin: 10px auto 10px auto;
-background-color: white;
-max-width: 50%;
-border-radius: 6px;
-font-family: verdana;
-font-size: 11px;
-border-left: 3px solid #c46210;
+    border: 1px solid #cdcdcc;
+    padding: 5px;
+    margin: 10px auto 10px auto;
+    background-color: white;
+    max-width: 50%;
+    border-radius: 6px;
+    font-family: verdana;
+    font-size: 11px;
+    border-left: 3px solid #c46210;
 `;
 
 const PostContainer = styled.div`
-margin: auto;
+    margin: auto;
 `
 
 const UserName = styled.p`
-border-bottom: 1px solid grey;
-margin-top: 2px;
+    border-bottom: 1px solid grey;
+    margin-top: 2px;
 `
 const PostTittle = styled.p`
-font-weight: bold;
+    font-weight: bold;
 `;
 
 const BackgroundDiv = styled.div`
-background-color: #fecbbd;
-display: flex;
-justify-content: center;
+    background-color: #fecbbd;
+    display: flex;
+    justify-content: center;
 `
 
 const DetailsButton = styled.button`
-background-color: white;
-border: 1px solid grey;
-border-radius: 5px;
-margin: 10px 0 5px 0;
-font-size: 15px;
-`
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin: 10px 0 5px 0;
+    font-size: 15px;
+    cursor: pointer;
+`;
+
+const ButtonDirection = styled.label`
+    cursor: pointer;
+`;
 
 const PostedBy = styled.span`
-color: grey;
-font-size: 9px;
+    color: grey;
+    font-size: 9px;
 `
 
 const LogoutDiv = styled.div`
-padding: 20px 0 0 100px;
+    padding: 20px 0 0 100px;
 ` 
 
 const H1Title = styled.h1`
-text-align: center;
-font-family: verdana;
-color: #4d4d4d;
+    text-align: center;
+    font-family: verdana;
+    color: #4d4d4d;
 `
 
 export class PostList extends Component {
@@ -80,7 +84,7 @@ export class PostList extends Component {
     }
 
 
-    handleIdPostAndGoToPostDetails = (postId) =>{
+    handleIdPostAndGoToPostDetails = (postId, event) =>{
         this.props.getPostId(postId);
         this.props.goToPostDetails();
     }
@@ -94,29 +98,29 @@ export class PostList extends Component {
                         <DetailsButton onClick= {this.handleLogOut} >Logout</DetailsButton>
                     </LogoutDiv>
 
-                <PostContainer>
+                        <PostContainer>
 
-                    <PostCreate/>
-                    <H1Title>Posts</H1Title>
-                    {this.props.posts.map((posts)=>
-                    <Fade bottom>
-                    <PostDiv>
-                      <UserName><PostedBy>Postado por: </PostedBy>{posts.username}</UserName>
-                      <PostTittle>{posts.title}</PostTittle>
-                      <hr/>
-                      {posts.text}  
-                      <div>({posts.commentsNumber}) comentários</div> 
+                            <PostCreate/>
+                                <H1Title>Posts</H1Title>
+                                    {this.props.posts.map((posts)=>
+                                        <Fade bottom>
+                                            <PostDiv>
+                                                 <UserName><PostedBy>Postado por: </PostedBy>{posts.username}</UserName>
+                                                 <PostTittle>{posts.title}</PostTittle>
+                                                <hr/>
+                                                    {posts.text}  
+                                                <div>({posts.commentsNumber}) comentários</div> 
+                                                <div>
+                                                    <ButtonDirection><ArrowUpwardRoundedIcon  onClick={ ()=> { this.props.votePost(posts.id, 1)} }/></ButtonDirection>({posts.votesCount})
+                                                    <ButtonDirection><ArrowDownwardRoundedIcon onClick={ ()=> { this.props.votePost(posts.id, -1)}}/></ButtonDirection>
+                                                </div>
+                                                    <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)} >Detalhes do post</DetailsButton>
+                                            </PostDiv>
+                                        </Fade>
 
-                      <p><ArrowUpwardRoundedIcon onClick={ ()=> { this.props.votePost(posts.id, 1)} }/>({posts.votesCount})
-                      <ArrowDownwardRoundedIcon onClick={ ()=> { this.props.votePost(posts.id, -1)}}/></p>
+                                    )}
 
-                      <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)} >Detalhes do post</DetailsButton>
-                    </PostDiv>
-                </Fade>
-
-                    )}
-
-                </PostContainer>
+                        </PostContainer>
 
             </BackgroundDiv>
         )

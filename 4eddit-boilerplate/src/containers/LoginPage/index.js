@@ -2,17 +2,15 @@ import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button"
 import styled from "styled-components";
-import { routes } from "../Router/index";
 import { connect } from "react-redux";
-import { push } from "connected-react-router";
 import { postLoginUser } from "../../actions"
 
 const DivContet = styled.div`
-display:flex;
-justify-content: center;
-background-color: #fecbbd;
-height: 100vh;
-align-items: center;
+  display:flex;
+  justify-content: center;
+  background-color: #fecbbd;
+  height: 100vh;
+  align-items: center;
 `
 
 
@@ -48,25 +46,25 @@ class LoginPage extends Component {
 
     return (
       <DivContet>
-      <LoginWrapper>
+        <LoginWrapper>
        
-        <TextField
-          onChange={this.handleFieldChange}
-          name="email"
-          type="email"
-          label="E-mail"
-          value={email}
-        />
-        <TextField
-          onChange={this.handleFieldChange}
-          name="password"
-          type="password"
-          label="password"
-          value={password}
-        />
-        <Button onClick={this.handleLoginButton}>Login</Button>
+          <TextField
+            onChange={this.handleFieldChange}
+            name="email"
+            type="email"
+            label="E-mail"
+            value={email}
+          />
+          <TextField
+            onChange={this.handleFieldChange}
+            name="password"
+            type="password"
+            label="password"
+            value={password}
+          />
+            <Button onClick={this.handleLoginButton}>Login</Button>
         
-      </LoginWrapper>
+        </LoginWrapper>
       </DivContet>
       
     );
