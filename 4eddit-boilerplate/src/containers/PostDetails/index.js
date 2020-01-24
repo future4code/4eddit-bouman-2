@@ -120,7 +120,7 @@ class PostDetails extends Component {
                         <div>
                             <form>
                                 <TextField
-                                    label="O que você está pensando?" name="text" type="text"
+                                    label="Comentário!" name="text" type="text"
                                     variant="outlined"
                                     rowsMax="4"
                                     required value={this.state.text}
@@ -131,7 +131,6 @@ class PostDetails extends Component {
                         </div>                                             
                         {loadingPage}
                     </PostDiv>
-
             </BackgroundDiv>
         )
     }
