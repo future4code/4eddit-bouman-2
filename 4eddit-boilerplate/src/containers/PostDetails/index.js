@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { routes } from "../Router";
 import { push } from "connected-react-router";
 import { connect } from "react-redux";
@@ -10,6 +10,7 @@ import { getPostDetail } from "../../actions";
 import ArrowUpwardRoundedIcon from '@material-ui/icons/ArrowUpwardRounded';
 import ArrowDownwardRoundedIcon from '@material-ui/icons/ArrowDownwardRounded';
 import { putVoteComment } from "../../actions";
+import Loading from "../../components/Loading"
 
 
 
@@ -86,6 +87,21 @@ class PostDetails extends Component {
 
     render(){
         const { selectedPost } = this.props;
+        let loadingPage = !selectedPost.comments ? <Loading/> : (
+            <Fragment>
+                    {selectedPost.comments && selectedPost.comments.map((itemPost) =>
+                            <CommentContainer>
+                                <CommentAuthor>{itemPost.username}</CommentAuthor>
+                                <ItemPost>{itemPost.text}</ItemPost>
+                                <div>
+                                    <ButtonDirection><ArrowUpwardRoundedIcon onClick={ ()=> { this.props.voteComment(selectedPost.id, itemPost.id, 1)}}/></ButtonDirection>
+                                        ({itemPost.votesCount})
+                                    <ButtonDirection><ArrowDownwardRoundedIcon onClick={ ()=> { this.props.voteComment(this.props.selectedPost.id, itemPost.id, -1)}}/></ButtonDirection>
+                                </div>
+                            </CommentContainer>
+                        )}
+            </Fragment>
+        ) 
 
         return(
 
@@ -113,18 +129,7 @@ class PostDetails extends Component {
                                     <Button onClick={this.handleCreateComment}>Responder</Button>
                             </form>
                         </div>                                             
-                        {selectedPost.comments && selectedPost.comments.map((itemPost) =>
-                            <CommentContainer>
-                                <CommentAuthor>{itemPost.username}</CommentAuthor>
-                                <ItemPost>{itemPost.text}</ItemPost>
-                                <div>
-                                    <ButtonDirection><ArrowUpwardRoundedIcon onClick={ ()=> { this.props.voteComment(selectedPost.id, itemPost.id, 1)}}/></ButtonDirection>
-                                        ({itemPost.votesCount})
-                                    <ButtonDirection><ArrowDownwardRoundedIcon onClick={ ()=> { this.props.voteComment(this.props.selectedPost.id, itemPost.id, -1)}}/></ButtonDirection>
-                                </div>
-                            </CommentContainer>
-                        )}
-                        
+                        {loadingPage}
                     </PostDiv>
 
             </BackgroundDiv>

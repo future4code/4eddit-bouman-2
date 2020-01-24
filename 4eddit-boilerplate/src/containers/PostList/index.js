@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import { routes } from "../Router";
 import { getPosts } from "../../actions";
 import { connect } from "react-redux";
@@ -10,6 +10,8 @@ import ArrowDownwardRoundedIcon from '@material-ui/icons/ArrowDownwardRounded';
 import PostCreate from "../PostCreate";
 import { putVote } from "../../actions";
 import Fade from 'react-reveal/Fade';
+import Loading from "../../components/Loading"
+
 
 
 const PostDiv = styled.div`
@@ -91,21 +93,14 @@ export class PostList extends Component {
 
     render(){
         
-        // let filterPost = this.props.posts.filter((post) =>{
+        // let filterPostText = this.props.posts.filter((post) =>{
         //     return post.username.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 || 
         //     post.text.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ;
         // })
 
-        return(
-            <BackgroundDiv>
-                <LogoutDiv>
-                    <DetailsButton onClick= {this.handleLogOut} >Logout</DetailsButton>
-                </LogoutDiv>
-                <PostContainer>
-                    
-                    <PostCreate/>
-                        <H1Title>Posts</H1Title>
-                            {this.props.posts.sort((a,b) => {
+        let loadingPage = this.props.posts.length === 0 ? <Loading/> : (
+          <Fragment>
+            {this.props.posts.sort((a,b) => {
                                 if (a.votesCount < b.votesCount) {
                                     return 1 ;
                                 }else {
@@ -114,8 +109,15 @@ export class PostList extends Component {
                         }).map((posts)=>
                             <Fade bottom>
                                 <PostDiv>
-                                    <UserName><PostedBy>Postado por: </PostedBy>{posts.username}</UserName>
-                                    <PostTittle>{posts.title}</PostTittle>
+                                    <UserName>
+                                        <PostedBy
+                                            >Postado por: 
+                                        </PostedBy>
+                                            {posts.username}
+                                    </UserName>
+                                    <PostTittle>
+                                        {posts.title}
+                                    </PostTittle>
                                     <hr/>
                                     {posts.text}  
                                     <div>({posts.commentsNumber}) comentários</div> 
@@ -126,6 +128,19 @@ export class PostList extends Component {
                                     <DetailsButton onClick={() => this.handleIdPostAndGoToPostDetails(posts.id)} >Detalhes do post</DetailsButton>
                                 </PostDiv>
                             </Fade>)}
+          </Fragment>  
+        )
+
+       return(
+            
+            <BackgroundDiv>
+                <LogoutDiv>
+                    <DetailsButton onClick= {this.handleLogOut} >Logout</DetailsButton>
+                </LogoutDiv>
+                <PostContainer>
+                    <PostCreate/>
+                    <H1Title>Posts</H1Title>
+                      {loadingPage}      
                 </PostContainer>
             </BackgroundDiv>
         )
